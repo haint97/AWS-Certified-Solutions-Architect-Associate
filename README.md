@@ -71,3 +71,13 @@ If the spot instance is terminated by EC2, will not be charged for a partial hou
 	+ Support thousands of concurrent NFS connections
 	+ Data is stored accoss multiple AZ's with a region
 	+ Read after write consistency 
+- Placement groups
+	+ Cluster: Low network latency / high network throughput. Can not span multiple AZ
+	+ Spread:  Individual critical instances
+	+ Partitioned: Multiple EC2 instances HDFS, HBase, Cassandra
+	Tips:  
+		Cluster: Can not span multiple AZ. 
+		Spread and partitioned can
+		Name specify for a replacement group must be unique in AWS account
+		Only certain type of instances can be launched in a placement group
+		Can't merge PG
