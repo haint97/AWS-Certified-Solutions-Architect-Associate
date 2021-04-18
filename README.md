@@ -1,6 +1,6 @@
 # AWS-Certified-Solutions-Architect-Associate
 
-#EC2
+# EC2
 - Models:
     + On-demand:  Pay a fixed rate by the hour/second with no commitment
     + Reserved: Provide with a capacity reservation, and offer a significant discount on the hourly charge for an instance. Contract terms are 1-3 years
@@ -65,3 +65,9 @@ If the spot instance is terminated by EC2, will not be charged for a partial hou
 	+ Easier to manage
 	+ Can be assigned to an EC2 instance after it is created
 	+ Are universal -  use in any region
+- EFS:
+	+Only pay for the storage that use (no pre-provisioning required)
+	+ Can be scale up to Petabytes
+	+ Support thousands of concurrent NFS connections
+	+ Data is stored accoss multiple AZ's with a region
+	+ Read after write consistency 
