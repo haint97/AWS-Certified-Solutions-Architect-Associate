@@ -60,3 +60,8 @@ If the spot instance is terminated by EC2, will not be charged for a partial hou
 	+ With EC2, CW will monitor events every 5 minutes by default
 	+ Can create CW alarms which trigger notifications
 	+ CW is all about performance. Cloutrail is all about auditing
+- Role: 
+	+ more secure than storing acesskey and secret key on individual EC2 instances
+	+ Easier to manage
+	+ Can be assigned to an EC2 instance after it is created
+	+ Are universal -  use in any region
