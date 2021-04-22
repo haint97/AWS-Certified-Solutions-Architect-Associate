@@ -81,7 +81,7 @@ If the spot instance is terminated by EC2, will not be charged for a partial hou
 		Name specify for a replacement group must be unique in AWS account
 		Only certain type of instances can be launched in a placement group
 		Can't merge PG
-#RDS
+# RDS
  - Tips:
  	+ RDS runs on virtual machines
 	+ Can not login to these OS
