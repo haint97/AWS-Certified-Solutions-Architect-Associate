@@ -86,3 +86,70 @@ If the spot instance is terminated by EC2, will not be charged for a partial hou
  	+ RDS runs on virtual machines
 	+ Can not login to these OS
 	+ RDS is not serverless
+- Back ups:
+	+ Automated:
+		+ Recover database to any point in time with a "retention period" (1-35 days)
+		+ Take full daily snapshot and wil also store transactions throughout the day
+		+ When do a recovery. Choose the most recent daily back up => apply transaction logs relevant to that day  => allows to do a point in time recovery down to a second, within the retention period
+		+ Enable by default
+		+ Backup data is store in S3.  Get free storage equal to the size of database. 
+		+ Backups are taken within a defined window. During backup window, storage I/O may be suspended while data is beging backed up and may experienece elevated latency
+	+ Database snapshots:
+		+ Done by manually
+		+ Stored even after delete the original RDS instance unlike automated backups
+- Multi-AZ
+	+ Allows to have an exact copy of production db in another AZ.
+	+ AWS handles replication, so when db is written to, this write will automatically be synchronized to the stand by db
+	+ In the event of planned db maintenance/ db instance failure/ AZ failure RDS will automatically failover to thr standy so that db operations can resume quickly without administrative intervention
+	+ Be used for disaster recovery only. Not primarily used for improving performance. For performance improvement, we need Read Replicas
+	+ Available for: SQLServer / MySQL/ Orcacle/ PostgreSQL/ MariaDB. Aurora by its own architecture is  comletely fault tolerant
+- Read replicas
+	+ Used for scaling not for DT
+	+ Must have automatic backups turned on in order to deploy a read replica
+	+ Have up to 5 read replica copies of any db
+	+ Can have read replicas of read replicas (latency)
+	+ Each read replica will have its own DNS end point
+	+ Can have read replicas that have multi-az
+	+ Can create read replicas of multi-az source db
+	+ Can have a read replica in second region
+	+ Read replicas can be promoted to be theri own db. This breaks the replication
+- DynamoDB
+	+ Stored on SSD 
+	+ Spread accross 3 geographically distinct data centres
+	+ Eventual Consistent Reads (default)
+	+ Strongly Consistent Read
+	+ Accelerator:
+		+ Fully managed, highly available, in-memory cache
+		+ 10x performance improvement
+		+ Reduces request time from milliseconds to microsecibds - even under load
+		+ No need for developers to manage caching login
+		+ Compatible with Dynamodb API calls
+	+ On-demand capacity:
+		+ Per per request pricing
+		+ Balance cost and performance
+		+ No minimum capacity
+		+ No charge for read/write - only storage and backups
+		+ Pay more per request than with provisioned capacity
+		+ Used for new product launches
+	+ On-Demand Backup and Restore:
+		+ Ful backups at any time
+		+ Zero impact on table performance or availability
+		+ Consistent within seconds and retained until deleted
+		+ Operates within same region as the source table
+		+ Point in time recovery:
+			+ Protects against accidental writes or deletes
+			+ Restore any point in the last 35 days
+			+ Incremental backup
+			+ Not enable by default
+			+ Lastest restorable: 5 minutes in the past
+	+ Streams:
+		+ Time-ordered sequence of item-level changes in a table
+		+ Stored 24 hour
+		+ Insert /update/delete
+		+ Combine with lambda funciton for functionality like stored procedures
+	+ Global tables:
+		+ Globally distributed apps
+		+ based on dyna,odb streams
+		+ multi-region redundancy for DR and HA
+		+ No app rewrites
+		+ Replication latency under 1  second
